@@ -10,8 +10,70 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.appla.iattended.MainActivity">
 
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/txt_login_name"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/background_light" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txt_login_id"
+        android:layout_below="@+id/txt_login_name"
+        android:layout_alignStart="@+id/txt_login_name"
+        android:text="xx-xxxx"
+        android:background="@android:color/background_light" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="ID: "
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+
+        android:id="@+id/ID"
+        android:layout_alignBaseline="@+id/txt_login_id"
+        android:layout_alignBottom="@+id/txt_login_id"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/name"
+        android:layout_alignBaseline="@+id/txt_login_name"
+        android:layout_alignBottom="@+id/txt_login_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_login_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp"
+        android:id="@+id/button" />
+
+
 </RelativeLayout>
