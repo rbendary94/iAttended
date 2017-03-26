@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text|textPersonName"
+        android:text="SSID"
+        android:ems="10"
+        android:layout_marginTop="21dp"
+        android:id="@+id/SSIDbox"
+        android:layout_below="@+id/SSID"
+        android:layout_alignLeft="@+id/SSID"
+        android:layout_alignStart="@+id/SSID"
+        android:background="@android:color/background_light"/>
+
+    <TextView
+        android:text="Enter password:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Password"
+        android:layout_marginTop="84dp"
+        android:layout_below="@+id/SSIDbox"
+        android:layout_alignLeft="@+id/SSIDbox"
+        android:layout_alignStart="@+id/SSIDbox"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:id="@+id/Passwordbox"
+        android:text="Password"
+        android:background="@android:color/background_light"
+        android:layout_below="@+id/Password"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Enter SSID:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SSID"
+        android:layout_marginTop="85dp"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/Passwordbox"
+        android:layout_alignStart="@+id/Passwordbox" />
+
+    <Button
+        android:text="Enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Passwordbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:id="@+id/EnterButton" />
+</RelativeLayout>
