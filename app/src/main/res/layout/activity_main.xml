@@ -11,58 +11,58 @@
     tools:context="com.example.appla.iattended.MainActivity">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:id="@+id/login_password"
+        android:layout_below="@+id/login_email"
+        android:layout_alignLeft="@+id/login_email"
+        android:layout_alignStart="@+id/login_email"
+        android:layout_marginTop="35dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Password"
         android:ems="10"
-        android:id="@+id/txt_login_name"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@android:color/background_light" />
+        android:id="@+id/txt_login_password"
 
+        android:background="@android:color/background_light"
+        android:layout_alignBaseline="@+id/login_password"
+        android:layout_alignBottom="@+id/login_password"
+        android:layout_alignLeft="@+id/txt_login_email"
+        android:layout_alignStart="@+id/txt_login_email" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="textPersonName"
+        android:text="Email"
         android:ems="10"
-        android:id="@+id/txt_login_id"
-        android:layout_below="@+id/txt_login_name"
-        android:layout_alignStart="@+id/txt_login_name"
-        android:text="xx-xxxx"
-        android:background="@android:color/background_light" />
+        android:id="@+id/txt_login_email"
+        android:background="@android:color/background_light"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="43dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/login_password"
+        android:layout_toEndOf="@+id/login_password" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID: "
+        android:text="Email:"
         android:textStyle="normal|bold"
         android:textSize="18sp"
-
-        android:id="@+id/ID"
-        android:layout_alignBaseline="@+id/txt_login_id"
-        android:layout_alignBottom="@+id/txt_login_id"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7"
         android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name: "
-        android:textStyle="normal|bold"
-        android:textSize="18sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:id="@+id/name"
-        android:layout_alignBaseline="@+id/txt_login_name"
-        android:layout_alignBottom="@+id/txt_login_name"
+        android:layout_marginStart="21dp"
+        android:id="@+id/login_email"
+        android:layout_alignBaseline="@+id/txt_login_email"
+        android:layout_alignBottom="@+id/txt_login_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -70,10 +70,10 @@
         android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_login_id"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
-        android:id="@+id/button" />
-
+        android:layout_marginTop="57dp"
+        android:id="@+id/button"
+        android:layout_below="@+id/txt_login_password"
+        android:layout_alignLeft="@+id/txt_login_password"
+        android:layout_alignStart="@+id/txt_login_password" />
 
 </RelativeLayout>
