@@ -11,21 +11,21 @@
         android:text="SSID"
         android:ems="10"
         android:layout_marginTop="21dp"
-        android:id="@+id/SSIDbox"
-        android:layout_below="@+id/SSID"
-        android:layout_alignLeft="@+id/SSID"
-        android:layout_alignStart="@+id/SSID"
+        android:id="@+id/TE_SSIDbox"
+        android:layout_below="@+id/TV_SSID"
+        android:layout_alignLeft="@+id/TV_SSID"
+        android:layout_alignStart="@+id/TV_SSID"
         android:background="@android:color/background_light"/>
 
     <TextView
         android:text="Enter password:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Password"
+        android:id="@+id/TV_Password"
         android:layout_marginTop="84dp"
-        android:layout_below="@+id/SSIDbox"
-        android:layout_alignLeft="@+id/SSIDbox"
-        android:layout_alignStart="@+id/SSIDbox"
+        android:layout_below="@+id/TE_SSIDbox"
+        android:layout_alignLeft="@+id/TE_SSIDbox"
+        android:layout_alignStart="@+id/TE_SSIDbox"
         android:textSize="20dp"/>
 
     <EditText
@@ -34,29 +34,29 @@
         android:inputType="textPassword"
         android:ems="10"
         android:layout_marginTop="20dp"
-        android:id="@+id/Passwordbox"
+        android:id="@+id/TE_Passwordbox"
         android:text="Password"
         android:background="@android:color/background_light"
-        android:layout_below="@+id/Password"
+        android:layout_below="@+id/TV_Password"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Enter SSID:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SSID"
+        android:id="@+id/TV_SSID"
         android:layout_marginTop="85dp"
         android:textSize="20dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/Passwordbox"
-        android:layout_alignStart="@+id/Passwordbox" />
+        android:layout_alignLeft="@+id/TE_Passwordbox"
+        android:layout_alignStart="@+id/TE_Passwordbox" />
 
     <Button
         android:text="Enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Passwordbox"
+        android:layout_below="@+id/TE_Passwordbox"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp"
-        android:id="@+id/EnterButton" />
+        android:id="@+id/B_EnterButton" />
 </RelativeLayout>
