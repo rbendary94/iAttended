@@ -8,25 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.firebase.client.realtime.util.StringListReader;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-
-import java.util.Map;
-
-import static android.R.attr.value;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Button redirectTosignUp;
     Button login;
-    BeaconService beaconService;
 
     EditText email, password;
     String str_email, str_password;
@@ -35,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         Firebase.setAndroidContext(this);
         Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         final Firebase newRef = ref.child("Users");
@@ -56,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
 
                         if(dataSnapshot.getValue() !=null){
-                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", id") );
+//                            Toast.makeText(MainActivity.this,
+//                                    ""+dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", isTa") );
 
                             //Email is not null then compare passwords
                             if(fetchedPassword.equals(str_password)){
@@ -64,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(fetchedIsTa.equals("true")){
                                     //Redirect to TA's page
-
+                                    Intent myIntent = new Intent(MainActivity.this, TaActivity.class);
+                                    MainActivity.this.startActivity(myIntent);
                                 }else{
-                                    //Redirect to Stuedent Page
-
+                                    //Redirect to Student Page
+                                    Intent myIntent = new Intent(MainActivity.this, StudentActivity.class);
+                                    MainActivity.this.startActivity(myIntent);
                                 }
                             }else{
                                 Toast.makeText(MainActivity.this,
@@ -106,12 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Register BroadcastReceiver
         //to receive event from our service
-        beaconService = new BeaconService();
 
         //Start our own service
-        Intent intent = new Intent(MainActivity.this,
-                BeaconService.class);
-        startService(intent);
 
         super.onStart();
     }
