@@ -12,10 +12,14 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+import com.firebase.client.realtime.util.StringListReader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.Map;
+
+import static android.R.attr.value;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,40 +50,43 @@ public class MainActivity extends AppCompatActivity {
                 str_password = password.getText().toString();
                 //fetch mn el db
                 Query queryRef = newRef.orderByChild("email").equalTo(str_email);
-                queryRef.addChildEventListener(new ChildEventListener() {
+
+                queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-                        System.out.println(dataSnapshot.getValue());
-                        Map<String,Object> value = (Map<String, Object>) dataSnapshot.getValue();
+                    public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
 
-                        String email1 = String.valueOf(value.get("email"));
-                        String password1 = String.valueOf(value.get("password"));
-                        //System.out.println(dataSnapshot.getKey() + "is" + value.get("fullName").toString());
-                        Toast.makeText(MainActivity.this,
-                                email1+"     "+password1, Toast.LENGTH_LONG).show();
-                    }
+                        if(dataSnapshot.getValue() !=null){
+                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", id") );
 
-                    @Override
-                    public void onChildChanged(com.firebase.client.DataSnapshot dataSnapshot, String s) {
+                            //Email is not null then compare passwords
+                            if(fetchedPassword.equals(str_password)){
+                                String fetchedIsTa =dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("isTa")+5,dataSnapshot.getValue().toString().length()-2 ); ;
 
-                    }
+                                if(fetchedIsTa.equals("true")){
+                                    //Redirect to TA's page
 
-                    @Override
-                    public void onChildRemoved(com.firebase.client.DataSnapshot dataSnapshot) {
+                                }else{
+                                    //Redirect to Stuedent Page
 
-                    }
+                                }
+                            }else{
+                                Toast.makeText(MainActivity.this,
+                                        "Incorrect Password", Toast.LENGTH_LONG).show();
+                            }
+                        }else{
 
-                    @Override
-                    public void onChildMoved(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-
+                            Toast.makeText(MainActivity.this,
+                                    "Email not found. please recheck email or Register", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
-
+                        Toast.makeText(MainActivity.this,
+                                "booooooo", Toast.LENGTH_LONG).show();
                     }
+
                 });
-                //redirect
             }}
         );
         redirectTosignUp = (Button) findViewById(R.id.btn_redirectToSignUp);
