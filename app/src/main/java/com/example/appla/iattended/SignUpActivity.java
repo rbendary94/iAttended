@@ -15,14 +15,14 @@ public class SignUpActivity extends AppCompatActivity {
     EditText email, password,id, confirmPassword;
     String str_email, str_password,str_id, str_confirmPassword;
     Boolean email_verified, password_verified, isTA, id_verified;
-    Firebase ref = new Firebase("https://iottrilaterationproject-78146.firebaseio.com/");
+    Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
 
     Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
+        Firebase.setAndroidContext(this);
         email = (EditText)  findViewById(R.id.txt_signup_email);
         password = (EditText)  findViewById(R.id.txt_signup_password);
         confirmPassword = (EditText)  findViewById(R.id.txt_signup_confirm_password);

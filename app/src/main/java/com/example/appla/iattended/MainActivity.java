@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.firebase.client.Firebase;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(myIntent);
             }}
         );
-
+        Firebase.setAndroidContext(this);
     }
 
     @Override
