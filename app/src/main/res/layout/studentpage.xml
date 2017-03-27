@@ -4,59 +4,60 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text|textPersonName"
-        android:text="SSID"
-        android:ems="10"
-        android:layout_marginTop="21dp"
-        android:id="@+id/TE_SSIDbox"
-        android:layout_below="@+id/TV_SSID"
-        android:layout_alignLeft="@+id/TV_SSID"
-        android:layout_alignStart="@+id/TV_SSID"
-        android:background="@android:color/background_light"/>
 
     <TextView
-        android:text="Enter password:"
+        android:text="Course Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/TV_Password"
-        android:layout_marginTop="84dp"
-        android:layout_below="@+id/TE_SSIDbox"
-        android:layout_alignLeft="@+id/TE_SSIDbox"
-        android:layout_alignStart="@+id/TE_SSIDbox"
-        android:textSize="20dp"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:id="@+id/TE_Passwordbox"
-        android:text="Password"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/TV_Password"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="Enter SSID:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TV_SSID"
-        android:layout_marginTop="85dp"
-        android:textSize="20dp"
+        android:id="@+id/tv_student_courseName"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/TE_Passwordbox"
-        android:layout_alignStart="@+id/TE_Passwordbox" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <Button
-        android:text="Enter"
+        android:text="Done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TE_Passwordbox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp"
-        android:id="@+id/B_EnterButton" />
+        android:layout_marginTop="98dp"
+        android:id="@+id/bt_student_endSession"
+        android:layout_below="@+id/tv_student_counter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Tutorial Nr. "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_student_tutorial_nr"
+        android:layout_marginTop="57dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_below="@+id/tv_student_courseName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="00:00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_student_counter"
+        android:layout_marginTop="59dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_below="@+id/tv_student_tutorial_nr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 </RelativeLayout>
