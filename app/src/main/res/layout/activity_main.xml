@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="57dp"
-        android:id="@+id/btn_signup"
+        android:id="@+id/btn_login"
         android:layout_below="@+id/txt_login_password"
         android:layout_alignLeft="@+id/txt_login_password"
         android:layout_alignStart="@+id/txt_login_password" />
@@ -80,9 +80,9 @@
         android:text="Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_signup"
-        android:layout_alignLeft="@+id/btn_signup"
-        android:layout_alignStart="@+id/btn_signup"
+        android:layout_below="@+id/btn_login"
+        android:layout_alignLeft="@+id/btn_login"
+        android:layout_alignStart="@+id/btn_login"
         android:layout_marginTop="45dp"
         android:id="@+id/btn_redirectToSignUp" />
 
