@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import static android.R.attr.value;
 
 public class MainActivity extends AppCompatActivity {
 
     Button redirectTosignUp;
+    BeaconService beaconService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +27,21 @@ public class MainActivity extends AppCompatActivity {
             }}
         );
 
+    }
+
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+
+        //Register BroadcastReceiver
+        //to receive event from our service
+        beaconService = new BeaconService();
+
+        //Start our own service
+        Intent intent = new Intent(MainActivity.this,
+                BeaconService.class);
+        startService(intent);
+
+        super.onStart();
     }
 }
