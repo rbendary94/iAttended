@@ -113,8 +113,9 @@ public class SignUpActivity extends AppCompatActivity {
                 //------------Dump to firebase db in table Users.------------
                 if(email_verified && password_verified && id_verified){
                     //Insert
+                    User user = new User(str_email,str_password,str_id,isTA);
                     Firebase newRef = ref.child("Users").push();
-                    newRef.setValue("Hola");
+                    newRef.setValue(user);
                     if(isTA){
                         //Redirect to TA's page
                     }else{
