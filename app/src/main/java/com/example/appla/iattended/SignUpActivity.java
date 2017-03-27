@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.firebase.client.Config;
+import com.firebase.client.Firebase;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -13,6 +15,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText email, password,id, confirmPassword;
     String str_email, str_password,str_id, str_confirmPassword;
     Boolean email_verified, password_verified, isTA, id_verified;
+    Firebase ref = new Firebase("https://iottrilaterationproject-78146.firebaseio.com/");
 
     Button signUp;
     @Override
@@ -24,7 +27,38 @@ public class SignUpActivity extends AppCompatActivity {
         password = (EditText)  findViewById(R.id.txt_signup_password);
         confirmPassword = (EditText)  findViewById(R.id.txt_signup_confirm_password);
         id = (EditText)  findViewById(R.id.txt_signup_id);
-
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    email.setHint("");
+                else
+                    email.setHint("GUC email");
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    password.setHint("");
+                else
+                    password.setHint("Password");
+            }
+        });
+        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    confirmPassword.setHint("");
+                else
+                    confirmPassword.setHint("Confirm Password");
+            }
+        });
+        id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    id.setHint("");
+                else
+                    id.setHint("XX-XXXXX");
+            }
+        });
         signUp = (Button) findViewById(R.id.btn_signup);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +113,8 @@ public class SignUpActivity extends AppCompatActivity {
                 //------------Dump to firebase db in table Users.------------
                 if(email_verified && password_verified && id_verified){
                     //Insert
+                    Firebase newRef = ref.child("Users").push();
+                    newRef.setValue("Hola");
                     if(isTA){
                         //Redirect to TA's page
                     }else{

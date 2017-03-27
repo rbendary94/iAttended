@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "898983766711",
+    "firebase_url": "https://iattended-bd60c.firebaseio.com",
+    "project_id": "iattended-bd60c",
+    "storage_bucket": "iattended-bd60c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898983766711:android:dbe1cba4474961df",
+        "android_client_info": {
+          "package_name": "com.example.appla.iattended"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898983766711-j654ssjua5rbl10ta1bvo6lc9i9f9gmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appla.iattended",
+            "certificate_hash": "dc1269616b4d2c6cc31449d39c948f3ed87a47e1"
+          }
+        },
+        {
+          "client_id": "898983766711-kjhi72991pdauogureolc9vns4i13j35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp38rYBLUgKR4mnKA7gAmqdIfbUGytGyM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898983766711-kjhi72991pdauogureolc9vns4i13j35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
