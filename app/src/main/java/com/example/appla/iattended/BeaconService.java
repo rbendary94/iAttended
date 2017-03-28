@@ -35,7 +35,6 @@ public class BeaconService extends Service implements BeaconConsumer {
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
-
         beaconManager.bind(this);
         //TODO do something useful
         Log.d("Rana","Service started!");
@@ -79,21 +78,21 @@ public class BeaconService extends Service implements BeaconConsumer {
                                                                Log.d("RSSI", rssi +"");
                                                                Log.d("power ", power +"");
                                                                Log.d("distance", distance);
-                                                               Log.d("Name", name);
+//                                                               Log.d("Name", name);
 
-                                                               if (name.equals("C5.102") && major.equals("1")){
+                                                               if (major.equals("102") && minor.equals("1")){
                                                                    Log.d("Rana","Beacon 1   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
                                                                    intent.putExtra("D1",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
 
-                                                               }if (name.equals("C5.102") && major.equals("2")){
+                                                               }if (major.equals("102") && minor.equals("2")){
                                                                    Log.d("Rana","Beacon 2   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
                                                                    intent.putExtra("D2",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
 
-                                                               }if (name.equals("C5.102") && major.equals("3")){
+                                                               }if (major.equals("102") && minor.equals("3")){
                                                                    Log.d("Rana","Beacon 3   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
                                                                    intent.putExtra("D3",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
 
-                                                               }if (name.equals("C5.102") && major.equals("4")){
+                                                               }if (major.equals("102") && minor.equals("4")){
                                                                    Log.d("Rana","Beacon 4   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
                                                                    intent.putExtra("D4",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
 
