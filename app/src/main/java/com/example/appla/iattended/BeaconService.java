@@ -65,7 +65,7 @@ public class BeaconService extends Service implements BeaconConsumer {
                                                        try {
                                                            Intent intent = new Intent();
                                                            intent.setAction(MY_ACTION);
-
+                                                           intent.putExtra("RoomNr","");
                                                            if (beacons.size() > 0) {
                                                                String distance = beacons.iterator().next().getDistance() + " meters away.";
                                                                final String major = beacons.iterator().next().getId2() + "";
@@ -86,6 +86,7 @@ public class BeaconService extends Service implements BeaconConsumer {
 
                                                                }if (major.equals("102") && minor.equals("2")){
                                                                    Log.d("Rana","Beacon 2   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
+                                                                   intent.putExtra("RoomNr",major);
                                                                    intent.putExtra("D2",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
 
                                                                }if (major.equals("102") && minor.equals("3")){
