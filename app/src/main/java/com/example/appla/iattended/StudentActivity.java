@@ -8,19 +8,33 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StudentActivity extends Activity{
 
     MyReceiver myReceiver;
     BeaconService beaconService;
-
+    static Timer T=new Timer();
+    int seconds=0;
+    int minutes=0;
+    int hours =0;
+    static Boolean timer=false;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-
+        Firebase.setAndroidContext(this);
 
         //call service that is continuosly detecting beacons around
 
@@ -32,6 +46,30 @@ public class StudentActivity extends Activity{
         //                            else if session is not done: display warning.
 
 
+        T.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        if (seconds==60){
+                            seconds=0;
+                            minutes++;
+                        }
+                        if(minutes==60){
+                            minutes =0;
+                            hours++;
+                        }
+//                        timeCounter.setText(hours+":"+minutes+":"+seconds);
+                        if(timer)
+                            seconds++;
+                        Log.d("Rana2",seconds+"");
+                    }
+                });
+            }
+        }, 1000, 1000);
 
     }
 
@@ -58,6 +96,8 @@ public class StudentActivity extends Activity{
     private class MyReceiver extends BroadcastReceiver {
 
         double d1,d2,d3,d4;
+        String RoomNr="";
+        String str_courseName,str_TutorialNr,str_startTime;
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
@@ -83,11 +123,45 @@ public class StudentActivity extends Activity{
             double va = (Math.pow(d2, 2) - Math.pow(d3, 2) - (Math.pow(0, 2) - Math.pow(5, 2) ) - (Math.pow(5, 2) - Math.pow(0,2 )) ) /2;
             double vb = (Math.pow(d2, 2) - Math.pow(d1, 2) - (Math.pow(0, 2) - Math.pow(0, 2) ) - (Math.pow(5, 2) - Math.pow(0,2 )) ) /2;
 
-//            Toast.makeText(MainActivity.this,
-//                    "Triggered by Service!\n"
-//                            + "Data passed: " + String.valueOf(x)+" , "+String.valueOf(y),
-//                    Toast.LENGTH_LONG).show();
 
+            RoomNr=arg1.getStringExtra("RoomNr");
+            if (RoomNr.equals("")){
+                StudentActivity.T.cancel();
+            }
+            Log.d("Rana1", RoomNr);
+            Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+            final Firebase newRef = ref.child("Sessions");
+            Query queryRef = newRef.orderByChild("str_roomNr").equalTo(RoomNr);
+
+            queryRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Toast.makeText(StudentActivity.this,
+//                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+
+                    if(dataSnapshot.getValue() !=null){
+                        Log.d("Rana1",dataSnapshot.getValue().toString() );
+                        String temp = dataSnapshot.getValue().toString();
+                        str_courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
+                        str_TutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
+                        str_startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
+                        Log.d("rana2",str_courseName);
+                        Log.d("rana2",str_startTime);
+                        Log.d("rana2",str_TutorialNr);
+                        //Session fetched
+                        String fetchedStartTime = dataSnapshot.getValue().toString();
+
+                        //start Counter
+                        StudentActivity.timer=true;
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
         }
 
     }

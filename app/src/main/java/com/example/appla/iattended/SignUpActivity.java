@@ -1,5 +1,6 @@
 package com.example.appla.iattended;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -118,9 +122,12 @@ public class SignUpActivity extends AppCompatActivity {
                     newRef.setValue(user);
                     if(isTA){
                         //Redirect to TA's page
+                        Intent myIntent = new Intent(SignUpActivity.this, StartSessionActivity.class);
+                        SignUpActivity.this.startActivity(myIntent);
                     }else{
                         //Redirect to students page
-
+                        Intent myIntent = new Intent(SignUpActivity.this, StudentActivity.class);
+                        SignUpActivity.this.startActivity(myIntent);
                     }
                 }
 
