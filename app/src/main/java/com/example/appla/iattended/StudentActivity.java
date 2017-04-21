@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,9 @@ public class StudentActivity extends Activity{
     int hours =0;
     static Boolean timer=true;
     String intendedRoom = "";
+    String courseName,startTime,tutorialNr;
     TextView tv_counter;
+    Button btn_done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,10 +39,25 @@ public class StudentActivity extends Activity{
         setContentView(R.layout.activity_student);
         Firebase.setAndroidContext(this);
         Bundle bundle = getIntent().getExtras();
+        final Intent myIntent = new Intent(StudentActivity.this, attendedActivity.class);
         intendedRoom = bundle.getString("IntendedRoom");
+        courseName = bundle.getString("CourseName");
+        startTime = bundle.getString("StartTime");
+        tutorialNr = bundle.getString("TutorialNr");
         Log.d("Rana",intendedRoom);
         tv_counter = (TextView) findViewById(R.id.tv_st_counter);
         tv_counter.setText("00:00:00");
+        btn_done = (Button) findViewById(R.id.bt_student_endSession);
+        btn_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myIntent.putExtra("IntendedRoom", intendedRoom);
+                myIntent.putExtra("CourseName", courseName);
+                myIntent.putExtra("TutorialNr", tutorialNr);
+                myIntent.putExtra("StartTime", startTime);
+                StudentActivity.this.startActivity(myIntent);
+            }
+        });
         //call service that is continuosly detecting beacons around
 
         //Once it detects 4 beacons with same UUID

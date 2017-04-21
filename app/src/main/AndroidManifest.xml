@@ -64,7 +64,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".StudentStartActivity"></activity>
+        <activity android:name=".StudentStartActivity" />
+        <activity android:name=".attendedActivity"></activity>
     </application>
 
 </manifest>
