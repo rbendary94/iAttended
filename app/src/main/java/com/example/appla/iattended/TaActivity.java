@@ -4,10 +4,8 @@ package com.example.appla.iattended;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +39,7 @@ public class TaActivity extends Activity{
         Firebase.setAndroidContext(this);
         ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         courseName = (TextView) findViewById(R.id.tv_ta_courseName);
-        timeCounter = (TextView) findViewById(R.id.tv_ta_counter);
+        timeCounter = (TextView) findViewById(R.id.tv_st_counter);
         btn_endSession = (Button) findViewById(R.id.bt_ta_endSession);
         Bundle bundle = getIntent().getExtras();
         str_courseName = bundle.getString("SessionName");

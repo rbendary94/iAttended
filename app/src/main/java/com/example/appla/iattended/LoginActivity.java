@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                     LoginActivity.this.startActivity(myIntent);
                                 }else{
                                     //Redirect to Student Page
-                                    Intent myIntent = new Intent(LoginActivity.this, StudentActivity.class);
+                                    Intent myIntent = new Intent(LoginActivity.this, StudentStartActivity.class);
                                     LoginActivity.this.startActivity(myIntent);
                                 }
                             }else{

@@ -11,11 +11,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,14 +24,21 @@ public class StudentActivity extends Activity{
     int seconds=0;
     int minutes=0;
     int hours =0;
-    static Boolean timer=false;
+    static Boolean timer=true;
+    String intendedRoom = "";
+    TextView tv_counter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
         Firebase.setAndroidContext(this);
-
+        Bundle bundle = getIntent().getExtras();
+        intendedRoom = bundle.getString("IntendedRoom");
+        Log.d("Rana",intendedRoom);
+        tv_counter = (TextView) findViewById(R.id.tv_st_counter);
+        tv_counter.setText("00:00:00");
         //call service that is continuosly detecting beacons around
 
         //Once it detects 4 beacons with same UUID
@@ -64,7 +67,10 @@ public class StudentActivity extends Activity{
                         }
 //                        timeCounter.setText(hours+":"+minutes+":"+seconds);
                         if(timer)
-                            seconds++;
+                            if (myReceiver.str_major.equals(intendedRoom) && myReceiver.distance<3){
+                                seconds++;
+                            }
+                        tv_counter.setText(hours+":"+minutes+":"+seconds);
                         Log.d("Rana2",seconds+"");
                     }
                 });
@@ -95,73 +101,29 @@ public class StudentActivity extends Activity{
 
     private class MyReceiver extends BroadcastReceiver {
 
-        double d1,d2,d3,d4;
-        String RoomNr="";
-        String str_courseName,str_TutorialNr,str_startTime;
+        double distance;
+        String str_major = "";
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
             // TODO Auto-generated method stub
 
-            if (arg1.getDoubleExtra("D1", 0)!=0){
-                d1 = arg1.getDoubleExtra("D1", 0);
-                Toast.makeText(StudentActivity.this,"D1= "+d1,
+            if (arg1.getDoubleExtra("Distance", 0)!=0){
+                distance = arg1.getDoubleExtra("D1", 0);
+                Toast.makeText(StudentActivity.this,"Distance = "+distance,
                     Toast.LENGTH_LONG).show();
+            }else{
+                distance = 5;
             }
-            if (arg1.getDoubleExtra("D2", 0)!=0){
-                d2 = arg1.getDoubleExtra("D2", 0);
-                Toast.makeText(StudentActivity.this,"D2= "+d2,
+            if (!arg1.getStringExtra("Major").equals("")){
+                str_major= arg1.getStringExtra("Major");
+                Toast.makeText(StudentActivity.this,"Major = "+str_major,
                         Toast.LENGTH_LONG).show();
+            }else{
+                str_major = "";
             }
-            if (arg1.getDoubleExtra("D3", 0)!=0){
-                d3 = arg1.getDoubleExtra("D3", 0);
-            }
-            if (arg1.getDoubleExtra("D4", 0)!=0){
-                d4 = arg1.getDoubleExtra("D4", 0);
-            }
-            Log.d("Rana",d1+" , "+d2+" , "+d3);
-            double va = (Math.pow(d2, 2) - Math.pow(d3, 2) - (Math.pow(0, 2) - Math.pow(5, 2) ) - (Math.pow(5, 2) - Math.pow(0,2 )) ) /2;
-            double vb = (Math.pow(d2, 2) - Math.pow(d1, 2) - (Math.pow(0, 2) - Math.pow(0, 2) ) - (Math.pow(5, 2) - Math.pow(0,2 )) ) /2;
+            Log.d("Rana",distance+" , major:  "+str_major+" , ");
 
-
-            RoomNr=arg1.getStringExtra("RoomNr");
-            if (RoomNr.equals("")){
-                StudentActivity.T.cancel();
-            }
-            Log.d("Rana1", RoomNr);
-            Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
-            final Firebase newRef = ref.child("Sessions");
-            Query queryRef = newRef.orderByChild("str_roomNr").equalTo(RoomNr);
-
-            queryRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    Toast.makeText(StudentActivity.this,
-//                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
-
-                    if(dataSnapshot.getValue() !=null){
-                        Log.d("Rana1",dataSnapshot.getValue().toString() );
-                        String temp = dataSnapshot.getValue().toString();
-                        str_courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
-                        str_TutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
-                        str_startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
-                        Log.d("rana2",str_courseName);
-                        Log.d("rana2",str_startTime);
-                        Log.d("rana2",str_TutorialNr);
-                        //Session fetched
-                        String fetchedStartTime = dataSnapshot.getValue().toString();
-
-                        //start Counter
-                        StudentActivity.timer=true;
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
         }
 
     }
