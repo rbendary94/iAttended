@@ -30,6 +30,8 @@ public class StudentStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_start);
         final Intent myIntent = new Intent(StudentStartActivity.this, StudentActivity.class);
+        Bundle bundle = getIntent().getExtras();
+        myIntent.putExtra("User",bundle.getString("User"));
         et_intendedRoomNr = (EditText) findViewById(R.id.et_IntendedRoom);
         btn_confirm = (Button) findViewById(R.id.btn_studentStart);
         btn_confirm.setOnClickListener(new View.OnClickListener() {

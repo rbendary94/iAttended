@@ -139,6 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if(isTA){
                         //Redirect to TA's page
                         Intent myIntent = new Intent(SignUpActivity.this, StartSessionActivity.class);
+                        myIntent.putExtra("User",str_email);
                         SignUpActivity.this.startActivity(myIntent);
                     }else{
                         //Redirect to students page

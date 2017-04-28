@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 //        Firebase.setAndroidContext(this);
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
-
 //        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         final DatabaseReference dbref2 =  dbref.child("Users");
 
@@ -71,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }else{
                                     //Redirect to Student Page
                                     Intent myIntent = new Intent(LoginActivity.this, StudentStartActivity.class);
+                                    myIntent.putExtra("User",str_email);
                                     LoginActivity.this.startActivity(myIntent);
                                 }
                             }else{

@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,6 +51,7 @@ public class StudentActivity extends Activity{
         setContentView(R.layout.activity_student);
         Bundle bundle = getIntent().getExtras();
         final Intent myIntent = new Intent(StudentActivity.this, attendedActivity.class);
+        myIntent.putExtra("User",bundle.getString("User"));
         intendedRoom = bundle.getString("IntendedRoom");
         courseName = bundle.getString("CourseName");
         startTime = bundle.getString("StartTime");
@@ -99,7 +102,36 @@ public class StudentActivity extends Activity{
                             myIntent.putExtra("StartTime", startTime);
 
                             //Calculate percentage of time and accordingly give attendance
+                            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
+                            Date d1 = null;
+                            Date d2 = null;
+                            long diffMinutes,diffHours,diffSeconds;
+                            try {
+                                d1 = format.parse(startTime);
+                                d2 = format.parse(endTime);
+
+                                //in milliseconds
+                                long diff = d2.getTime() - d1.getTime();
+
+                                diffSeconds = diff / 1000 % 60;
+                                diffMinutes = diff / (60 * 1000) % 60;
+                                diffHours = diff / (60 * 60 * 1000) % 24;
+
+                                //Calculate percentage
+                                long durationOfSessionSeconds = diffSeconds+(60*diffMinutes)+(60*60*diffHours);
+                                long durationOfStaySeconds = seconds+(60*minutes)+(60*60*hours);
+                                Log.d("Rana321",durationOfStaySeconds+" , "+(durationOfSessionSeconds*0.75));
+                                if (durationOfStaySeconds >= durationOfSessionSeconds*0.75){
+                                    myIntent.putExtra("Attended", true);
+                                    StudentActivity.this.startActivity(myIntent);
+                                }else{
+                                    myIntent.putExtra("Attended", false);
+                                    StudentActivity.this.startActivity(myIntent);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
 
 //                            StudentStartActivity.this.startActivity(myIntent);
@@ -119,7 +151,6 @@ public class StudentActivity extends Activity{
                 });
 
 
-                StudentActivity.this.startActivity(myIntent);
             }
         });
         //call service that is continuosly detecting beacons around
