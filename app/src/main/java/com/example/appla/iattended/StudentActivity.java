@@ -84,8 +84,8 @@ public class StudentActivity extends Activity{
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                    Toast.makeText(StudentActivity.this,
-                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(StudentActivity.this,
+//                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
 
 
                         if(dataSnapshot.getValue() !=null){
@@ -238,8 +238,8 @@ public class StudentActivity extends Activity{
             }
             if (!arg1.getStringExtra("Major").equals("")){
                 str_major= arg1.getStringExtra("Major");
-                Toast.makeText(StudentActivity.this,"Major = "+str_major,
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(StudentActivity.this,"Major = "+str_major,
+//                        Toast.LENGTH_LONG).show();
             }else{
                 str_major = "";
             }
