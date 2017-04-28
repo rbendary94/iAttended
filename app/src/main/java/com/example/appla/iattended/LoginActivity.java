@@ -51,17 +51,27 @@ public class LoginActivity extends AppCompatActivity {
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        String fetchedPassword="";
+                        Boolean fetchedIsTa=false;
+                        for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                            fetchedPassword = (String) messageSnapshot.child("password").getValue();
+                            fetchedIsTa = (Boolean) messageSnapshot.child("isTa").getValue();
+                            break;
+                        }
 
                         if(dataSnapshot.getValue() !=null){
 
-                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", isTa") );
+//                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", isTa") );
+//                            String fetchedPassword = (String) dataSnapshot.child("password").getValue();
 
                             //Email is not null then compare passwords
                             if(fetchedPassword.equals(str_password)){
-                                String fetchedIsTa =dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("isTa")+5,dataSnapshot.getValue().toString().length()-2 ); ;
+
+//                                String fetchedIsTa =dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("isTa")+5,dataSnapshot.getValue().toString().length()-2 ); ;
+//                                String fetchedIsTa = (String) dataSnapshot.child("isTa").getValue();
                                 Toast.makeText(LoginActivity.this,
                                         ""+fetchedIsTa, Toast.LENGTH_LONG).show();
-                                if(fetchedIsTa.contains("true")){
+                                if(fetchedIsTa){
                                     //Redirect to TA's page
 //                                    Toast.makeText(MainActivity.this,
 //                                            "GOWA EL CONDITION  "+fetchedIsTa, Toast.LENGTH_LONG).show();
