@@ -52,10 +52,16 @@ public class StudentStartActivity extends AppCompatActivity {
 //                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
 
                     if(dataSnapshot.getValue() !=null){
+                        for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                            courseName = (String) messageSnapshot.child("str_courseName").getValue();
+                            tutorialNr = (String) messageSnapshot.child("str_tutorialNr").getValue();
+                            startTime = (String) messageSnapshot.child("startTime").getValue();
+                            break;
+                        }
                         String temp = dataSnapshot.getValue().toString();
-                        courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
-                        tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
-                        startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
+//                        courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
+//                        tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
+//                        startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
                         Log.d("rana2",courseName);
                         Log.d("rana2",startTime);
                         Log.d("rana2",tutorialNr);

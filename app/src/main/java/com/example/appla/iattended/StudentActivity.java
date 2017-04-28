@@ -87,12 +87,18 @@ public class StudentActivity extends Activity{
                     Toast.makeText(StudentActivity.this,
                             "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
 
+
                         if(dataSnapshot.getValue() !=null){
-                            String temp = dataSnapshot.getValue().toString();
+                            for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                                endTime = (String) messageSnapshot.child("endTime").getValue();
+                                break;
+                            }
+//                            String temp = dataSnapshot.getValue().toString();
 //                            courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
 //                            tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
 //                            startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
-                            endTime= temp.substring(temp.indexOf("endTime=")+8,temp.length());
+
+//                            endTime= temp.substring(temp.indexOf("endTime=")+8,temp.length());
 
                             Log.d("rana3",endTime);
                             //Session fetched
