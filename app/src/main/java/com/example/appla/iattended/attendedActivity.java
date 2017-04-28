@@ -27,7 +27,6 @@ public class attendedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attended);
-//        Firebase.setAndroidContext(this);
         final Bundle bundle = getIntent().getExtras();
         roomNr = bundle.getString("IntendedRoom");
         courseName = bundle.getString("CourseName");
@@ -44,7 +43,6 @@ public class attendedActivity extends AppCompatActivity {
         tv_tutorialNr.setText(tutorialNr);
         tv_courseName.setText(courseName);
         tv_roomNr.setText(roomNr);
-        Log.d("Rana321",attended+"");
         if (attended){
             tv_attendance.setText("Attended");
         }else{

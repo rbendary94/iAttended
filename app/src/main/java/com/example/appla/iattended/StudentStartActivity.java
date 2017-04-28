@@ -37,9 +37,7 @@ public class StudentStartActivity extends AppCompatActivity {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intendedRoom = et_intendedRoomNr.getText().toString();
-                //fireball check
-
+        intendedRoom = et_intendedRoomNr.getText().toString();
 
             DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
             final DatabaseReference dbref2 =  dbref.child("Sessions");
@@ -48,8 +46,6 @@ public class StudentStartActivity extends AppCompatActivity {
             queryRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-//                    Toast.makeText(StudentActivity.this,
-//                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
 
                     if(dataSnapshot.getValue() !=null){
                         for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
@@ -58,13 +54,7 @@ public class StudentStartActivity extends AppCompatActivity {
                             startTime = (String) messageSnapshot.child("startTime").getValue();
                             break;
                         }
-                        String temp = dataSnapshot.getValue().toString();
-//                        courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
-//                        tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
-//                        startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
-                        Log.d("rana2",courseName);
-                        Log.d("rana2",startTime);
-                        Log.d("rana2",tutorialNr);
+
                         //Session fetched
                         myIntent.putExtra("IntendedRoom", intendedRoom);
                         myIntent.putExtra("CourseName", courseName);
@@ -76,8 +66,6 @@ public class StudentStartActivity extends AppCompatActivity {
                         Toast.makeText(StudentStartActivity.this, "Theres currently no session in this room make sure the TA started the session and you are in the correct room!" , Toast.LENGTH_LONG).show();
 
                     }
-
-
                 }
 
                 @Override

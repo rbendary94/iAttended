@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +55,6 @@ public class StudentActivity extends Activity{
         courseName = bundle.getString("CourseName");
         startTime = bundle.getString("StartTime");
         tutorialNr = bundle.getString("TutorialNr");
-        Log.d("Rana",intendedRoom);
 
         tv_courseName = (TextView) findViewById(R.id.tv_student_courseName);
         tv_courseName.setText(courseName);
@@ -84,23 +82,13 @@ public class StudentActivity extends Activity{
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//                    Toast.makeText(StudentActivity.this,
-//                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
-
 
                         if(dataSnapshot.getValue() !=null){
                             for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                                 endTime = (String) messageSnapshot.child("endTime").getValue();
                                 break;
                             }
-//                            String temp = dataSnapshot.getValue().toString();
-//                            courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
-//                            tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
-//                            startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
 
-//                            endTime= temp.substring(temp.indexOf("endTime=")+8,temp.length());
-
-                            Log.d("rana3",endTime);
                             //Session fetched
                             myIntent.putExtra("IntendedRoom", intendedRoom);
                             myIntent.putExtra("CourseName", courseName);
@@ -127,7 +115,6 @@ public class StudentActivity extends Activity{
                                 //Calculate percentage
                                 long durationOfSessionSeconds = diffSeconds+(60*diffMinutes)+(60*60*diffHours);
                                 long durationOfStaySeconds = seconds+(60*minutes)+(60*60*hours);
-                                Log.d("Rana321",durationOfStaySeconds+" , "+(durationOfSessionSeconds*0.75));
                                 if (durationOfStaySeconds >= durationOfSessionSeconds*0.75){
                                     myIntent.putExtra("Attended", true);
                                     StudentActivity.this.startActivity(myIntent);
@@ -138,10 +125,6 @@ public class StudentActivity extends Activity{
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
-
-//                            StudentStartActivity.this.startActivity(myIntent);
-
                         }else{
                             Toast.makeText(StudentActivity.this, "Theres currently no session in this room make sure the TA started the session and you are in the correct room!" , Toast.LENGTH_LONG).show();
 
@@ -159,15 +142,6 @@ public class StudentActivity extends Activity{
 
             }
         });
-        //call service that is continuosly detecting beacons around
-
-        //Once it detects 4 beacons with same UUID
-        //           it fetches from db the course name, room number and tutorial number
-        //           start counter
-        //As long as the same 4 beacons are detected increment the counter
-        //On Done button click: check if session ended (through firebase db) then add the attendance for this student
-        //                            else if session is not done: display warning.
-
 
         T.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -185,13 +159,11 @@ public class StudentActivity extends Activity{
                             minutes =0;
                             hours++;
                         }
-//                        timeCounter.setText(hours+":"+minutes+":"+seconds);
                         if(timer)
                             if (myReceiver.str_major.equals(intendedRoom) && myReceiver.distance<3){
                                 seconds++;
                             }
                         tv_counter.setText(hours+":"+minutes+":"+seconds);
-                        Log.d("Rana2",seconds+"");
                     }
                 });
             }
@@ -230,20 +202,14 @@ public class StudentActivity extends Activity{
 
             if (arg1.getStringExtra("Distance")!=null){
                 distance = Double.parseDouble(arg1.getStringExtra("Distance"));
-                Log.d("yasser", distance+"");
-//                Toast.makeText(StudentActivity.this,"Distance = "+distance,
-//                    Toast.LENGTH_LONG).show();
             }else{
                 distance = 5;
             }
             if (!arg1.getStringExtra("Major").equals("")){
                 str_major= arg1.getStringExtra("Major");
-//                Toast.makeText(StudentActivity.this,"Major = "+str_major,
-//                        Toast.LENGTH_LONG).show();
             }else{
                 str_major = "";
             }
-            Log.d("Rana",distance+" , major:  "+str_major+" , ");
 
         }
 

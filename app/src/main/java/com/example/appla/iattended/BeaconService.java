@@ -51,7 +51,6 @@ public class BeaconService extends Service implements BeaconConsumer {
     public void onBeaconServiceConnect() {
         try {
             beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
-            //beaconManager.startRangingBeaconsInRegion(new Region());
         } catch (RemoteException e) {
         }
 
@@ -63,8 +62,6 @@ public class BeaconService extends Service implements BeaconConsumer {
                                                    @Override
                                                    public void run() {
                                                        try {
-
-//                                                           String major = "";
                                                            Intent intent = new Intent();
                                                            intent.setAction(MY_ACTION);
                                                            intent.putExtra("RoomNr","");
@@ -77,19 +74,11 @@ public class BeaconService extends Service implements BeaconConsumer {
                                                                final int rssi = beacons.iterator().next().getRssi();
                                                                final int power = beacons.iterator().next().getTxPower();
                                                                final String name = beacons.iterator().next().getBluetoothName();
-                                                               Log.d("Major", major);
-                                                               Log.d("Minor", minor);
-                                                               Log.d("RSSI", rssi +"");
-                                                               Log.d("power ", power +"");
-                                                               Log.d("distance", distance);
-//                                                               Log.d("Name", name);
 
-                                                               Log.d("Rana","Beacon 1   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
                                                                intent.putExtra("Distance",distance.substring(0,distance.indexOf(' ')));
                                                                intent.putExtra("Major",major);
 
                                                            }
-//                                                           intent.putExtra("Major",major);
                                                            sendBroadcast(intent);
 
 

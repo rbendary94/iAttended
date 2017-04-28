@@ -34,10 +34,8 @@ public class EndSessionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endsession);
-//        Firebase.setAndroidContext(this);
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
 
-//        ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         courseName = (TextView) findViewById(R.id.tv_endSession_courseName);
         startTime = (TextView) findViewById(R.id.tv_tv_endSession_startTime);//
         endTime = (TextView) findViewById(R.id.tv_tv_endSession_endTime);//

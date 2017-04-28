@@ -30,22 +30,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        Firebase.setAndroidContext(this);
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
-//        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         final DatabaseReference dbref2 =  dbref.child("Users");
 
-//        final Firebase newRef = ref.child("Users");
         email = (EditText)  findViewById(R.id.txt_login_email);
         password = (EditText)  findViewById(R.id.txt_login_password);
         login = (Button) findViewById(R.id.btn_login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //generate el strings el awel
                 str_email = email.getText().toString();
                 str_password = password.getText().toString();
-                //fetch mn el db
                 Query queryRef = dbref2.orderByChild("email").equalTo(str_email);
 
                 queryRef.addValueEventListener(new ValueEventListener() {
@@ -61,20 +56,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(dataSnapshot.getValue() !=null){
 
-//                            String fetchedPassword= dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("password")+9,dataSnapshot.getValue().toString().indexOf(", isTa") );
-//                            String fetchedPassword = (String) dataSnapshot.child("password").getValue();
-
                             //Email is not null then compare passwords
                             if(fetchedPassword.equals(str_password)){
 
-//                                String fetchedIsTa =dataSnapshot.getValue().toString().substring(dataSnapshot.getValue().toString().indexOf("isTa")+5,dataSnapshot.getValue().toString().length()-2 ); ;
-//                                String fetchedIsTa = (String) dataSnapshot.child("isTa").getValue();
                                 Toast.makeText(LoginActivity.this,
                                         ""+fetchedIsTa, Toast.LENGTH_LONG).show();
                                 if(fetchedIsTa){
                                     //Redirect to TA's page
-//                                    Toast.makeText(MainActivity.this,
-//                                            "GOWA EL CONDITION  "+fetchedIsTa, Toast.LENGTH_LONG).show();
                                     Intent myIntent = new Intent(LoginActivity.this, StartSessionActivity.class);
                                     LoginActivity.this.startActivity(myIntent);
                                 }else{

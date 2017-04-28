@@ -22,14 +22,12 @@ public class SignUpActivity extends AppCompatActivity {
     EditText email, password,id, confirmPassword;
     String str_email, str_password,str_id, str_confirmPassword;
     Boolean email_verified, password_verified, isTA, id_verified;
-//    Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
 
     Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-//        DatabaseReference.setAndroidContext(this);
         email = (EditText)  findViewById(R.id.txt_signup_email);
         password = (EditText)  findViewById(R.id.txt_signup_password);
         confirmPassword = (EditText)  findViewById(R.id.txt_signup_confirm_password);
@@ -76,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                 str_confirmPassword = confirmPassword.getText().toString();
                 str_id = id.getText().toString();
 
-                //------------conditions 3alehom------------
+                //------------conditions ------------
 
                 //PASSWORD CONDITIONS
                 if(str_password.equals(str_confirmPassword)){
@@ -121,7 +119,6 @@ public class SignUpActivity extends AppCompatActivity {
                 if(email_verified && password_verified && id_verified){
                     //Insert
                     User user = new User(str_email,str_password,str_id,isTA);
-//                    Firebase newRef = ref.child("Users").push();
                     DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
                     DatabaseReference dbref2 =  dbref.child("Users").push();
 
