@@ -16,6 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -101,7 +102,7 @@ public class TaActivity extends Activity{
                 myIntent.putExtra("SessionRoomNr", str_roomNr);
                 myIntent.putExtra("SessionTutorialNr", str_tutorialNr);
                 myIntent.putExtra("SessionStartTime", str_timeCounter);
-                String endTime = DateFormat.getDateTimeInstance().format(new Date());
+                String endTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
                 myIntent.putExtra("SessionEndTime", endTime);
                 TaActivity.this.startActivity(myIntent);
 
