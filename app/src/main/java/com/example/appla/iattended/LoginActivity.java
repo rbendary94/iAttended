@@ -8,10 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,9 +30,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Firebase.setAndroidContext(this);
-        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
-        final Firebase newRef = ref.child("Users");
+//        Firebase.setAndroidContext(this);
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+
+//        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+        final DatabaseReference dbref2 =  dbref.child("Users");
+
+//        final Firebase newRef = ref.child("Users");
         email = (EditText)  findViewById(R.id.txt_login_email);
         password = (EditText)  findViewById(R.id.txt_login_password);
         login = (Button) findViewById(R.id.btn_login);
@@ -40,11 +47,11 @@ public class LoginActivity extends AppCompatActivity {
                 str_email = email.getText().toString();
                 str_password = password.getText().toString();
                 //fetch mn el db
-                Query queryRef = newRef.orderByChild("email").equalTo(str_email);
+                Query queryRef = dbref2.orderByChild("email").equalTo(str_email);
 
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
                         if(dataSnapshot.getValue() !=null){
 
@@ -78,11 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-                        Toast.makeText(LoginActivity.this,
-                                "booooooo", Toast.LENGTH_LONG).show();
-                    }
+                    public void onCancelled(DatabaseError databaseError) {
 
+                    }
                 });
             }}
         );

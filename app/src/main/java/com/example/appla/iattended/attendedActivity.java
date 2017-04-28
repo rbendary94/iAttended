@@ -6,11 +6,12 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class attendedActivity extends AppCompatActivity {
 
@@ -21,16 +22,19 @@ public class attendedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attended);
-        Firebase.setAndroidContext(this);
+//        Firebase.setAndroidContext(this);
         Bundle bundle = getIntent().getExtras();
         roomNr = bundle.getString("IntendedRoom");
         courseName = bundle.getString("CourseName");
         startTime = bundle.getString("StartTime");
         tutorialNr = bundle.getString("TutorialNr");
 
-        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
-        final Firebase newRef = ref.child("FinishedSessions");
-        Query queryRef = newRef.orderByChild("str_roomNr").equalTo(roomNr);
+//        Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+        DatabaseReference dbref2 =  dbref.child("Users");
+
+//        final Firebase newRef = ref.child("FinishedSessions");
+        Query queryRef = dbref2.orderByChild("str_roomNr").equalTo(roomNr);
 
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,7 +67,7 @@ public class attendedActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });

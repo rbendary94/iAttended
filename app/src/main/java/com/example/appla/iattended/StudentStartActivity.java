@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.R.attr.start;
 
@@ -36,9 +38,10 @@ public class StudentStartActivity extends AppCompatActivity {
                 intendedRoom = et_intendedRoomNr.getText().toString();
                 //fireball check
 
-            Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
-            final Firebase newRef = ref.child("Sessions");
-            Query queryRef = newRef.orderByChild("str_roomNr").equalTo(intendedRoom);
+
+            DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+            final DatabaseReference dbref2 =  dbref.child("Sessions");
+            Query queryRef = dbref2.orderByChild("str_roomNr").equalTo(intendedRoom);
 
             queryRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -70,7 +73,7 @@ public class StudentStartActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
             });

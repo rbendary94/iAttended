@@ -1,6 +1,7 @@
 package com.example.appla.iattended;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,14 +9,14 @@ import java.util.Date;
  */
 
 public class Session {
-    String str_courseName, str_roomNr,str_tutorialNr,startTime , endTime;
+    public String str_courseName, str_roomNr,str_tutorialNr,startTime , endTime;
 
     public Session(String str_courseName, String str_roomNr, String str_tutorialNr){
         this.str_courseName=str_courseName;
         this.str_roomNr=str_roomNr;
         this.str_tutorialNr=str_tutorialNr;
-        startTime= DateFormat.getDateTimeInstance().format(new Date());
-        endTime = "";
+        this.startTime= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
+        this.endTime = "";
     }
 
 

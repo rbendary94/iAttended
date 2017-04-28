@@ -7,9 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -18,7 +23,6 @@ import java.util.Date;
 
 public class EndSessionActivity extends AppCompatActivity {
 
-    Firebase ref;
     TextView courseName, startTime, endTime, room, tutorialNr;
     String str_courseName, str_startTime,str_endTime, str_room, str_tutorialNr;
     Session s;
@@ -30,8 +34,10 @@ public class EndSessionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endsession);
-        Firebase.setAndroidContext(this);
-        ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+//        Firebase.setAndroidContext(this);
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+
+//        ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
         courseName = (TextView) findViewById(R.id.tv_endSession_courseName);
         startTime = (TextView) findViewById(R.id.tv_tv_endSession_startTime);//
         endTime = (TextView) findViewById(R.id.tv_tv_endSession_endTime);//
@@ -54,9 +60,19 @@ public class EndSessionActivity extends AppCompatActivity {
 
         s = new Session(str_courseName,str_room, str_tutorialNr );
         s.startTime = str_startTime;
-        s.endTime = DateFormat.getDateTimeInstance().format(new Date());
-        Firebase newRef2 = ref.child("FinishedSessions").push();
-        newRef2.setValue(s);
+        s.endTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
+        DatabaseReference dbref2 =  dbref.child("FinishedSessions").push();
+
+        dbref2.setValue(s, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    System.out.println("Data could not be saved " + databaseError.getMessage());
+                } else {
+                    System.out.println("Data saved successfully.");
+                }
+            }
+        });
 
 
         redirectToStartSession = (Button)  findViewById(R.id.bt_redirect_endsession);

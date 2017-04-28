@@ -3,12 +3,16 @@ package com.example.appla.iattended;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by Yasser on 28/3/17.
@@ -19,15 +23,17 @@ public class StartSessionActivity  extends AppCompatActivity {
     EditText courseName, roomNr,tutorialNr;
     String str_courseName, str_roomNr,str_tutorialNr;
     Button startSession;
-    Firebase ref;
+//    Firebase ref;
+    DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startsession);
-        Firebase.setAndroidContext(this);
-        ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+//        Firebase.setAndroidContext(this);
+//        ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
 
         courseName = (EditText)  findViewById(R.id.txt_ta_courseName);
         roomNr = (EditText)  findViewById(R.id.txt_ta_roomNr);
@@ -46,9 +52,24 @@ public class StartSessionActivity  extends AppCompatActivity {
                 //PASSWORD CONDITIONS
                 if(!str_courseName.equals("") && !str_roomNr.equals("") && !str_tutorialNr.equals("")){
                     //insert to db
-                    Firebase newRef = ref.child("Sessions").push();
+//                    Firebase newRef = ref.child("Sessions").push();
+                    DatabaseReference dbref2 =  dbref.child("Sessions").push();
                     Session session = new Session(str_courseName, str_roomNr,str_tutorialNr);
-                    newRef.setValue(session);
+
+                    dbref2.setValue(session, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                System.out.println("Data could not be saved " + databaseError.getMessage());
+                            } else {
+                                System.out.println("Data saved successfully.");
+                            }
+                        }
+                    });
+
+
+
+//                    newRef.setValue(session);
                     Toast.makeText(StartSessionActivity.this,
                             "Session " +session.str_courseName + " started!", Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(StartSessionActivity.this, TaActivity.class);

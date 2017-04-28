@@ -10,10 +10,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,16 +35,18 @@ public class StudentActivity extends Activity{
     int hours =0;
     static Boolean timer=true;
     String intendedRoom = "";
-    String courseName,startTime,tutorialNr;
+    String courseName,startTime,tutorialNr, endTime;
     TextView tv_counter;
     Button btn_done;
+
+    TextView tv_courseName ;
+    TextView tv_tutorialNr ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        Firebase.setAndroidContext(this);
         Bundle bundle = getIntent().getExtras();
         final Intent myIntent = new Intent(StudentActivity.this, attendedActivity.class);
         intendedRoom = bundle.getString("IntendedRoom");
@@ -45,8 +54,16 @@ public class StudentActivity extends Activity{
         startTime = bundle.getString("StartTime");
         tutorialNr = bundle.getString("TutorialNr");
         Log.d("Rana",intendedRoom);
+
+        tv_courseName = (TextView) findViewById(R.id.tv_student_courseName);
+        tv_courseName.setText(courseName);
+
+        tv_tutorialNr = (TextView) findViewById(R.id.tv_student_tutorial_nr);
+        tv_tutorialNr.setText(tutorialNr);
+
         tv_counter = (TextView) findViewById(R.id.tv_st_counter);
         tv_counter.setText("00:00:00");
+
         btn_done = (Button) findViewById(R.id.bt_student_endSession);
         btn_done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +72,53 @@ public class StudentActivity extends Activity{
                 myIntent.putExtra("CourseName", courseName);
                 myIntent.putExtra("TutorialNr", tutorialNr);
                 myIntent.putExtra("StartTime", startTime);
+
+                //Check session ended
+                DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+                final DatabaseReference dbref2 =  dbref.child("FinishedSessions");
+                Query queryRef = dbref2.orderByChild("str_roomNr").equalTo(intendedRoom);
+
+                queryRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    Toast.makeText(StudentActivity.this,
+                            "" + dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+
+                        if(dataSnapshot.getValue() !=null){
+                            String temp = dataSnapshot.getValue().toString();
+//                            courseName= temp.substring(temp.indexOf("str_courseName=")+15,temp.indexOf(", str_roomNr"));
+//                            tutorialNr= temp.substring(temp.indexOf("str_tutorialNr=")+15,temp.length()-2);
+//                            startTime= temp.substring(temp.indexOf("startTime=")+10,temp.indexOf(", str_courseName"));
+                            endTime= temp.substring(temp.indexOf("endTime=")+8,temp.length());
+
+                            Log.d("rana3",endTime);
+                            //Session fetched
+                            myIntent.putExtra("IntendedRoom", intendedRoom);
+                            myIntent.putExtra("CourseName", courseName);
+                            myIntent.putExtra("TutorialNr", tutorialNr);
+                            myIntent.putExtra("StartTime", startTime);
+
+                            //Calculate percentage of time and accordingly give attendance
+
+
+
+//                            StudentStartActivity.this.startActivity(myIntent);
+
+                        }else{
+                            Toast.makeText(StudentActivity.this, "Theres currently no session in this room make sure the TA started the session and you are in the correct room!" , Toast.LENGTH_LONG).show();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 StudentActivity.this.startActivity(myIntent);
             }
         });

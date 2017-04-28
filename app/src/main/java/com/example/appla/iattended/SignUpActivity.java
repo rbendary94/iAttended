@@ -8,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -19,14 +22,14 @@ public class SignUpActivity extends AppCompatActivity {
     EditText email, password,id, confirmPassword;
     String str_email, str_password,str_id, str_confirmPassword;
     Boolean email_verified, password_verified, isTA, id_verified;
-    Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
+//    Firebase ref = new Firebase("https://iattended-bd60c.firebaseio.com/");
 
     Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Firebase.setAndroidContext(this);
+//        DatabaseReference.setAndroidContext(this);
         email = (EditText)  findViewById(R.id.txt_signup_email);
         password = (EditText)  findViewById(R.id.txt_signup_password);
         confirmPassword = (EditText)  findViewById(R.id.txt_signup_confirm_password);
@@ -118,15 +121,28 @@ public class SignUpActivity extends AppCompatActivity {
                 if(email_verified && password_verified && id_verified){
                     //Insert
                     User user = new User(str_email,str_password,str_id,isTA);
-                    Firebase newRef = ref.child("Users").push();
-                    newRef.setValue(user);
+//                    Firebase newRef = ref.child("Users").push();
+                    DatabaseReference dbref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://iattended-bd60c.firebaseio.com/");
+                    DatabaseReference dbref2 =  dbref.child("Users").push();
+
+                    dbref2.setValue(user, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                System.out.println("Data could not be saved " + databaseError.getMessage());
+                            } else {
+                                System.out.println("Data saved successfully.");
+                            }
+                        }
+                    });
+
                     if(isTA){
                         //Redirect to TA's page
                         Intent myIntent = new Intent(SignUpActivity.this, StartSessionActivity.class);
                         SignUpActivity.this.startActivity(myIntent);
                     }else{
                         //Redirect to students page
-                        Intent myIntent = new Intent(SignUpActivity.this, StudentActivity.class);
+                        Intent myIntent = new Intent(SignUpActivity.this, StudentStartActivity.class);
                         SignUpActivity.this.startActivity(myIntent);
                     }
                 }
