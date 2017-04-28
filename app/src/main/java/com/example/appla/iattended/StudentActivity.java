@@ -222,10 +222,11 @@ public class StudentActivity extends Activity{
         public void onReceive(Context arg0, Intent arg1) {
             // TODO Auto-generated method stub
 
-            if (arg1.getDoubleExtra("Distance", 0)!=0){
-                distance = arg1.getDoubleExtra("D1", 0);
-                Toast.makeText(StudentActivity.this,"Distance = "+distance,
-                    Toast.LENGTH_LONG).show();
+            if (arg1.getStringExtra("Distance")!=null){
+                distance = Double.parseDouble(arg1.getStringExtra("Distance"));
+                Log.d("yasser", distance+"");
+//                Toast.makeText(StudentActivity.this,"Distance = "+distance,
+//                    Toast.LENGTH_LONG).show();
             }else{
                 distance = 5;
             }

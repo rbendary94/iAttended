@@ -85,7 +85,7 @@ public class BeaconService extends Service implements BeaconConsumer {
 //                                                               Log.d("Name", name);
 
                                                                Log.d("Rana","Beacon 1   "+Double.parseDouble(distance.substring(0,distance.indexOf(' ')))+"");
-                                                               intent.putExtra("Distance",Double.parseDouble(distance.substring(0,distance.indexOf(' '))));
+                                                               intent.putExtra("Distance",distance.substring(0,distance.indexOf(' ')));
                                                                intent.putExtra("Major",major);
 
                                                            }
