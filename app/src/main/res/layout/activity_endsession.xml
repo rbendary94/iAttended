@@ -13,10 +13,10 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_below="@+id/tv_tv_endSession_startTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/tv_tv_endSession_startTime"
+        android:layout_alignStart="@+id/tv_tv_endSession_startTime" />
 
     <TextView
         android:text="00:00:00"
@@ -27,24 +27,10 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_below="@+id/tv_tv_endSession_endTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Course Name "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_endSession_courseName"
-        android:layout_marginTop="32dp"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toRightOf="@+id/textView12"
+        android:layout_toEndOf="@+id/textView12" />
 
     <TextView
         android:text="00:00:00"
@@ -55,10 +41,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginTop="43dp"
         android:layout_below="@+id/tv_endSession_tutorialNr"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/tv_endSession_tutorialNr"
+        android:layout_alignStart="@+id/tv_endSession_tutorialNr" />
 
     <TextView
         android:text="Tutorial Nr"
@@ -71,8 +57,8 @@
         android:layout_below="@+id/tv_endSession_courseName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/tv_endSession_courseName"
+        android:layout_alignStart="@+id/tv_endSession_courseName" />
 
     <Button
         android:text="Start Another Session"
@@ -82,6 +68,102 @@
         android:layout_below="@+id/tv_tv_endSession_RoomNr"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp" />
+
+    <TextView
+        android:text="Tutorial Nr.:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:layout_alignTop="@+id/tv_endSession_tutorialNr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tv_endSession_tutorialNr"
+        android:layout_toStartOf="@+id/tv_endSession_tutorialNr"
+        android:layout_above="@+id/tv_tv_endSession_startTime"
+        android:textStyle="normal|bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Session Start:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_alignTop="@+id/tv_tv_endSession_startTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tv_tv_endSession_startTime"
+        android:layout_toStartOf="@+id/tv_tv_endSession_startTime"
+        android:layout_above="@+id/tv_tv_endSession_endTime"
+        android:textStyle="normal|bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Session End:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView10"
+        android:layout_alignTop="@+id/tv_tv_endSession_endTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/tv_tv_endSession_RoomNr"
+        android:layout_toLeftOf="@+id/tv_tv_endSession_endTime"
+        android:layout_toStartOf="@+id/tv_tv_endSession_endTime"
+        android:textStyle="normal|bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Room Nr:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:layout_alignTop="@+id/tv_tv_endSession_RoomNr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/bt_redirect_endsession"
+        android:layout_toStartOf="@+id/tv_tv_endSession_endTime"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_toLeftOf="@+id/tv_tv_endSession_endTime" />
+
+    <TextView
+        android:text="Session Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView13"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="36sp"
+        android:textStyle="normal|bold"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="Course Name "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_endSession_courseName"
+        android:layout_marginTop="39dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
+
+    <TextView
+        android:text="Course Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_alignBaseline="@+id/tv_endSession_courseName"
+        android:layout_alignBottom="@+id/tv_endSession_courseName"
+        android:layout_toLeftOf="@+id/tv_endSession_courseName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

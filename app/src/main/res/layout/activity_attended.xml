@@ -15,11 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp"
         android:id="@+id/tv_roomNr"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="24sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
 
     <Button
         android:text="Done"
@@ -39,7 +42,8 @@
         android:layout_below="@+id/tv_tutorialNr"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@android:color/holo_red_dark" />
 
     <TextView
         android:text="CSEN1001"
@@ -47,10 +51,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_courseName"
         android:layout_below="@+id/tv_roomNr"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="42dp"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="24sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4" />
 
     <TextView
         android:text="5"
@@ -58,8 +65,64 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_tutorialNr"
         android:layout_below="@+id/tv_courseName"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="24sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:text="Room Nr.:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_roomNr"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/tv_courseName"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tv_courseName"
+        android:layout_toStartOf="@+id/tv_courseName" />
+
+    <TextView
+        android:text="Course Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_courseName"
+        android:id="@+id/textView4"
+        android:layout_alignBottom="@+id/tv_courseName"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Tutorial Nr.:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_above="@+id/tv_attendance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tv_courseName"
+        android:layout_toStartOf="@+id/tv_courseName"
+        android:layout_alignTop="@+id/tv_tutorialNr" />
+
+    <TextView
+        android:text="Session Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="normal|bold" />
 </RelativeLayout>
