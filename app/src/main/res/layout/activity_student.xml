@@ -43,7 +43,7 @@
         android:layout_marginBottom="102dp" />
 
     <TextView
-        android:text="Course Name:"
+        android:text="Tutorial Nr.:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView14"
@@ -57,7 +57,7 @@
         android:textStyle="normal|bold" />
 
     <TextView
-        android:text="Course Name:"
+        android:text="Attended time:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView8"
@@ -67,7 +67,7 @@
         android:layout_toStartOf="@+id/tv_student_tutorial_nr"
         android:layout_alignTop="@+id/tv_st_counter"
         android:layout_alignBottom="@+id/tv_st_counter"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="normal|bold" />
 
     <TextView
